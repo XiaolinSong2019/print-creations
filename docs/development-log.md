@@ -28,6 +28,7 @@ Business workflows have not been tested.
 ### Follow-up Task
 
 - PC-001: Document V1 requirements and acceptance criteria
+- Pull Request: https://github.com/XiaolinSong2019/print-creations/pull/2
 
 # Completion Record
 
