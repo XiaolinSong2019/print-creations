@@ -202,3 +202,128 @@ when an authorized admin opens that request,
 then the admin can retrieve its associated files.
 
 Unauthenticated users cannot list or download stored customer artwork.
+
+### US-003: Review Rush Requests
+
+As an admin,
+I want to review rush requests and record approval and additional fees,
+so that expedited work is approved based on staff review.
+
+#### Acceptance Criteria
+
+**AC-003.1: Require admin authorization**
+
+Given a caller without the required admin authorization,
+when the caller attempts to change rush approval or fees,
+then the operation is rejected and the order remains unchanged.
+
+**AC-003.2: Approve a requested rush**
+
+Given an order with rushRequested set to true,
+when an authorized admin approves rush and enters a valid
+non-negative USD fee,
+then rushApproved is saved as true and the entered fee is saved.
+
+The fee is entered manually rather than calculated automatically.
+
+**AC-003.3: Reject invalid approval**
+
+Given an order without a rush request, or an approval with a missing,
+nonnumeric, or negative fee,
+when approval is submitted,
+then the operation is rejected without changing the saved rush decision.
+
+**AC-003.4: Clear rush approval**
+
+Given an approved rush request,
+when an authorized admin clears approval,
+then rushApproved becomes false and the rush fee is cleared.
+
+The original customer rush request remains recorded.
+
+**AC-003.5: Record the decision independently**
+
+Given a successful rush decision update,
+when the change is saved,
+then an audit entry records the admin identity, time,
+and previous and new approval and fee values.
+
+The operation leaves order status and status history unchanged
+and does not automatically send a customer email.
+
+### US-004: Update Order Status and Notify the Customer
+
+As an admin,
+I want to review and confirm an order status update,
+so that the saved status and customer notification reflect
+an intentional business decision.
+
+Order lifecycle stages are New, In Progress, Ready, and Completed.
+
+When an order is Ready, its customer-facing label depends on fulfillment:
+
+| Fulfillment Method | Customer-Facing Status |
+|---|---|
+| Pickup | Ready for Pickup |
+| Mailing | Ready for Mailing |
+| Delivery | Ready for Delivery |
+
+#### Acceptance Criteria
+
+**AC-004.1: Propose a change**
+
+Given an order with a saved status,
+when an admin selects a different supported status,
+then the review action becomes available.
+
+Selecting a status alone does not change the saved order.
+
+**AC-004.2: Review before confirmation**
+
+Given a proposed status change,
+when the admin opens the review dialog,
+then the dialog displays the order reference, old and proposed statuses,
+fulfillment method, customer-facing status, recipient email,
+and notice that a customer notification will be sent.
+
+**AC-004.3: Cancel a change**
+
+Given an open review dialog,
+when the admin cancels,
+then the saved status remains unchanged,
+no status history entry is created,
+and no customer notification is sent.
+
+**AC-004.4: Confirm a valid change**
+
+Given an authorized admin and a valid status transition,
+when the admin explicitly confirms the reviewed change,
+then the new status and its history entry are saved,
+including the old status, new status, admin identity, and time.
+
+The customer notification is initiated after the change is saved.
+
+**AC-004.5: Avoid duplicate status updates**
+
+Given an order already at the requested status,
+when the same status update is submitted again,
+then no additional status history entry or customer notification is created.
+
+**AC-004.6: Handle notification failure**
+
+Given a confirmed status change whose notification fails,
+when the failure is detected,
+then the saved status and history remain available,
+and the notification failure is recorded for retry.
+
+Retrying notification delivery does not repeat the status change
+or create another status history entry.
+
+## Open Questions
+
+- Maximum file size and file count require confirmation against
+  the deployment environment.
+- Existing-customer marketing preference updates require separate
+  acceptance scenarios.
+- Rush fee decimal precision and rounding policy require confirmation
+  during API design.
