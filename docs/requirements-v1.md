@@ -132,3 +132,73 @@ or resend notifications already recorded as successfully delivered.
   the deployment environment.
 - Existing-customer marketing preference updates require separate
   acceptance scenarios.
+### US-002: Upload Artwork
+
+As a customer,
+I want to attach finished or partial artwork to my request,
+so that Print Creations can review the materials for my project.
+
+Artwork uploads remain optional, as defined in AC-001.3.
+
+Supported extensions, matched case-insensitively:
+
+- PDF: .pdf
+- JPEG: .jpg, .jpeg
+- TIFF: .tif, .tiff
+- EPS: .eps
+
+#### Acceptance Criteria
+
+**AC-002.1: Accept supported files**
+
+Given supported files that pass validation,
+when the customer submits a valid request,
+then the files are stored and associated with that request.
+
+The original filename, detected file type, and file size are recorded.
+
+**AC-002.2: Reject invalid files**
+
+Given an unsupported or unreadable file,
+when validation is performed,
+then a clear file-specific error is displayed,
+and submission is blocked until the file is removed or replaced.
+
+Backend validation checks file content in addition to the filename
+and declared content type.
+
+**AC-002.3: Allow print-readiness warnings**
+
+Given supported artwork with resolution, color, or bleed concerns,
+when available print-readiness checks identify a concern,
+then the concern is shown as a warning requiring admin review,
+and submission remains available.
+
+Checks that cannot determine print readiness require admin review.
+
+**AC-002.4: Enforce upload limits**
+
+Given configured file size and file count limits,
+when a selected upload exceeds a limit,
+then a clear error identifies the exceeded limit,
+and submission is blocked until the upload meets the limits.
+
+The backend enforces these limits independently of browser checks.
+Exact limits remain listed under Open Questions until confirmed.
+
+**AC-002.5: Handle upload failures**
+
+Given an upload that fails,
+when the failure is detected,
+then the customer sees an error and can retry or remove the file.
+
+Valid text fields are preserved, and the failed file is not shown
+as successfully uploaded.
+
+**AC-002.6: Protect stored artwork**
+
+Given artwork stored for a request,
+when an authorized admin opens that request,
+then the admin can retrieve its associated files.
+
+Unauthenticated users cannot list or download stored customer artwork.
