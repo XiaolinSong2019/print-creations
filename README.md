@@ -17,14 +17,6 @@ A website project for a print shop serving customers in the United States.
 - Maven Wrapper
 
 ## Build and Run
-## Continuous Integration
-
-Maven CI builds and tests the project with Java 21 and the Maven Wrapper
-on pull requests targeting `main` and on pushes to `main`.
-
-Open the pull request's **Checks** tab and select **Build and Test**
-to view the result and logs.
-
 Run the following commands from the project root.
 
 Build the application and run the configured checks:
@@ -44,6 +36,13 @@ The application runs at http://localhost:8080.
 
 Press Control+C in the terminal running the application to stop it.
 
+## Continuous Integration
+
+Maven CI builds and tests the project with Java 21 and the Maven Wrapper
+on pull requests targeting `main` and on pushes to `main`.
+
+Open the pull request's **Checks** tab and select **Build and Test**
+to view the result and logs.
 ## Current Status
 
 The public category listing API is implemented using an in-memory catalog.
