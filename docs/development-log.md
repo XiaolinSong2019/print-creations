@@ -64,8 +64,8 @@ Detailed rules will be refined during feature design, including:
 
 ## PC-002: Public Category Listing API
 
-Date: 2026-10-28
-Status: In Progress
+Date: 2026-11-06
+Status: Done
 Branch: `feat/pc-002-category-api`
 
 ### Work Completed
@@ -93,3 +93,8 @@ Branch: `feat/pc-002-category-api`
 - Complete documentation and staged diff review.
 - Commit the changes, push the feature branch, and create a pull request.
 - Merge the feature into main after review.
+- ### Completion Record
+
+Completed: 2026-10-28
+Pull Request: https://github.com/XiaolinSong2019/print-creations/pull/4
+Main Branch Commit: `3fa12e5`
