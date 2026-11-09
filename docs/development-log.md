@@ -94,3 +94,22 @@ Branch: `feat/pc-002-category-api`
 Completed: 2026-10-28
 Pull Request: [PR #4](https://github.com/XiaolinSong2019/print-creations/pull/4)
 Main Branch Commit: `3fa12e5`
+
+## PC-003: Maven CI
+
+Status: Done
+Pull Request: [PR #6](https://github.com/XiaolinSong2019/print-creations/pull/6)
+Main Branch Commit: `fe468ef`
+
+- The PR build passed with 2 tests.
+- The push to `main` triggered Maven CI run `42345796492`.
+
+## PC-004: Public Product Catalog API
+
+Date: 2026-11-09
+Status: In Progress
+
+- Added `GET /api/products` for the 28 approved products.
+- Verified HTTP 200 and the product list with curl.
+- Added an MVC test for the total, category counts, and the Business Cards category.
+- `./mvnw test`: 3 passed, 0 failures, 0 errors, 0 skipped.
