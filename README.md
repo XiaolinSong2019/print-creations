@@ -73,3 +73,14 @@ With the application running, send a request:
 ```bash
 curl -i http://localhost:8080/api/categories
 ```
+## Public Product API
+
+`GET /api/products` returns HTTP 200 and a JSON array of 28 approved products.
+Each item contains `id`, `name`, and `categoryId`. The category ID matches
+an ID returned by `GET /api/categories`.
+
+Example item: `{"id":12,"name":"Business Cards","categoryId":2}`.
+
+With the application running, send a request:
+
+    curl -i http://localhost:8080/api/products
