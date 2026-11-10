@@ -160,3 +160,14 @@ confirmation page.
   reference to the PostgreSQL record. Verified that a rush request can be
   saved without marketing opt-in. The quote starts in `NEW` with rush
   approval unset and no rush fee.
+
+## PC-008: Protected Admin Quote Lookup
+
+Status: Ready for review
+
+- Added a read-only endpoint for administrators to retrieve quotes by reference number.
+- Automated verification: 9 backend tests passed, including guest submission,
+  invalid credentials, non-admin access, and unknown references.
+- Manual verification: after restarting the application, an anonymous lookup
+  returned HTTP 401. An authenticated administrator retrieved the original
+  PostgreSQL quote with HTTP 200 and Cache-Control: no-store.

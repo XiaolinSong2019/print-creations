@@ -1,5 +1,6 @@
 package com.printcreations.printcreations.catalog;
 
+import com.printcreations.printcreations.security.SecurityConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -14,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductController.class)
-@Import(ProductCatalogService.class)
+@Import({ProductCatalogService.class, SecurityConfig.class})
 class ProductControllerTest {
 
     @Autowired
