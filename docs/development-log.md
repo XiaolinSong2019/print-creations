@@ -107,9 +107,26 @@ Main Branch Commit: `fe468ef`
 ## PC-004: Public Product Catalog API
 
 Date: 2026-11-09
-Status: In Progress
+Status: Done
 
 - Added `GET /api/products` for the 28 approved products.
 - Verified HTTP 200 and the product list with curl.
 - Added an MVC test for the total, category counts, and the Business Cards category.
 - `./mvnw test`: 3 passed, 0 failures, 0 errors, 0 skipped.
+- Pull Request: [#8](https://github.com/XiaolinSong2019/print-creations/pull/8)
+  Main Branch Commit: `041761c`
+
+## PC-005: Frontend Product Catalog
+
+Date: 2026-11-09
+Status: In Progress
+Issue: [#9](https://github.com/XiaolinSong2019/print-creations/issues/9)
+
+- Displayed 28 products under four categories using the Spring Boot APIs.
+- Verified category counts of 10, 11, 4, and 3 in the browser.
+- Passed two component tests covering product grouping and the API error state.
+- Passed local lint and production build checks.
+- Configured Frontend CI to install from the npm lockfile and run lint, tests, and build.
+- The production dependency audit reported no vulnerabilities. Follow up on
+  [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)
+  when a compatible update is available for the ESLint toolchain.
