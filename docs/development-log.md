@@ -119,7 +119,7 @@ Status: Done
 ## PC-005: Frontend Product Catalog
 
 Date: 2026-11-09
-Status: In Progress
+Status: Done
 Issue: [#9](https://github.com/XiaolinSong2019/print-creations/issues/9)
 
 - Displayed 28 products under four categories using the Spring Boot APIs.
@@ -130,3 +130,14 @@ Issue: [#9](https://github.com/XiaolinSong2019/print-creations/issues/9)
 - The production dependency audit reported no vulnerabilities. Follow up on
   [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249)
   when a compatible update is available for the ESLint toolchain.
+
+## PC-006: Public Product Detail Pages
+
+Date: 2026-11-09
+Status: In Progress
+Issue: [#11](https://github.com/XiaolinSong2019/print-creations/issues/11)
+
+- Linked catalog products to a shared detail page at `/products/:productId`.
+- Verified catalog navigation, direct links, refresh, and the missing-product page in the browser.
+- Passed five frontend tests, lint, and the production build.
+- The production dependency audit reported zero vulnerabilities.
