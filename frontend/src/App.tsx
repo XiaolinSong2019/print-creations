@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, Route, Routes, useParams } from 'react-router'
+import QuoteRequestPage from './QuoteRequestPage'
 
 type Category = { id: number; name: string }
 type Product = { id: number; name: string; categoryId: number }
@@ -52,11 +53,13 @@ function NotFoundPage({ title }: { title: string }) {
     )
 }
 
-function ProductDetailsPage({ catalog }: { catalog: Catalog }) {
+function useCatalogProduct(products: Product[]) {
     const { productId } = useParams<'productId'>()
-    const product = catalog.products.find(
-        (candidate) => String(candidate.id) === productId,
-    )
+    return products.find((product) => String(product.id) === productId)
+}
+
+function ProductDetailsPage({ catalog }: { catalog: Catalog }) {
+    const product = useCatalogProduct(catalog.products)
 
     if (!product) {
         return <NotFoundPage title="Product not found" />
@@ -71,8 +74,19 @@ function ProductDetailsPage({ catalog }: { catalog: Catalog }) {
             <Link to="/">Back to catalog</Link>
             <h1>{product.name}</h1>
             <p>Category: {category?.name ?? 'Unavailable'}</p>
+            <Link to={`/products/${product.id}/quote`}>Request a Quote</Link>
         </main>
     )
+}
+
+function ProductQuoteRoute({ catalog }: { catalog: Catalog }) {
+    const product = useCatalogProduct(catalog.products)
+
+    if (!product) {
+        return <NotFoundPage title="Product not found" />
+    }
+
+    return <QuoteRequestPage key={product.id} product={product} />
 }
 
 export default function App() {
@@ -114,6 +128,10 @@ export default function App() {
             <Route
                 path="/products/:productId"
                 element={<ProductDetailsPage catalog={catalog} />}
+            />
+            <Route
+                path="/products/:productId/quote"
+                element={<ProductQuoteRoute catalog={catalog} />}
             />
             <Route path="*" element={<NotFoundPage title="Page not found" />} />
         </Routes>
