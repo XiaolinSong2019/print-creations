@@ -1,72 +1,121 @@
 import { useEffect, useState } from 'react'
+import { Link, Route, Routes, useParams } from 'react-router'
 
 type Category = { id: number; name: string }
 type Product = { id: number; name: string; categoryId: number }
 type Catalog = { categories: Category[]; products: Product[] }
 
 async function fetchJson<T>(path: string, signal: AbortSignal): Promise<T> {
-  const response = await fetch(path, { signal })
+    const response = await fetch(path, { signal })
 
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`)
-  }
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`)
+    }
 
-  return (await response.json()) as T
+    return (await response.json()) as T
+}
+
+function CatalogPage({ catalog }: { catalog: Catalog }) {
+    return (
+        <main>
+            <h1>Product Catalog</h1>
+
+            {catalog.categories.map((category) => {
+                const categoryProducts = catalog.products.filter(
+                    (product) => product.categoryId === category.id,
+                )
+
+                return (
+                    <section key={category.id}>
+                        <h2>{category.name} ({categoryProducts.length})</h2>
+                        <ul>
+                            {categoryProducts.map((product) => (
+                                <li key={product.id}>
+                                    <Link to={`/products/${product.id}`}>{product.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )
+            })}
+        </main>
+    )
+}
+
+function NotFoundPage({ title }: { title: string }) {
+    return (
+        <main>
+            <h1>{title}</h1>
+            <p>Return to the catalog to browse available products.</p>
+            <Link to="/">Back to catalog</Link>
+        </main>
+    )
+}
+
+function ProductDetailsPage({ catalog }: { catalog: Catalog }) {
+    const { productId } = useParams<'productId'>()
+    const product = catalog.products.find(
+        (candidate) => String(candidate.id) === productId,
+    )
+
+    if (!product) {
+        return <NotFoundPage title="Product not found" />
+    }
+
+    const category = catalog.categories.find(
+        (candidate) => candidate.id === product.categoryId,
+    )
+
+    return (
+        <main>
+            <Link to="/">Back to catalog</Link>
+            <h1>{product.name}</h1>
+            <p>Category: {category?.name ?? 'Unavailable'}</p>
+        </main>
+    )
 }
 
 export default function App() {
-  const [catalog, setCatalog] = useState<Catalog | null>(null)
-  const [hasError, setHasError] = useState(false)
+    const [catalog, setCatalog] = useState<Catalog | null>(null)
+    const [hasError, setHasError] = useState(false)
 
-  useEffect(() => {
-    const controller = new AbortController()
+    useEffect(() => {
+        const controller = new AbortController()
 
-    Promise.all([
-      fetchJson<Category[]>('/api/categories', controller.signal),
-      fetchJson<Product[]>('/api/products', controller.signal),
-    ])
-        .then(([categories, products]) => {
-          if (!controller.signal.aborted) {
-            setCatalog({ categories, products })
-          }
-        })
-        .catch(() => {
-          if (!controller.signal.aborted) {
-            setHasError(true)
-          }
-        })
+        Promise.all([
+            fetchJson<Category[]>('/api/categories', controller.signal),
+            fetchJson<Product[]>('/api/products', controller.signal),
+        ])
+            .then(([categories, products]) => {
+                if (!controller.signal.aborted) {
+                    setCatalog({ categories, products })
+                }
+            })
+            .catch(() => {
+                if (!controller.signal.aborted) {
+                    setHasError(true)
+                }
+            })
 
-    return () => controller.abort()
-  }, [])
+        return () => controller.abort()
+    }, [])
 
-  if (hasError) {
-    return <p role="alert">Unable to load the product catalog. Please try again.</p>
-  }
+    if (hasError) {
+        return <p role="alert">Unable to load the product catalog. Please try again.</p>
+    }
 
-  if (!catalog) {
-    return <p role="status">Loading products...</p>
-  }
+    if (!catalog) {
+        return <p role="status">Loading products...</p>
+    }
 
-  return (
-      <main>
-        <h1>Product Catalog</h1>
-
-        {catalog.categories.map((category) => {
-          const categoryProducts = catalog.products.filter(
-              (product) => product.categoryId === category.id,
-          )
-
-          return (
-              <section key={category.id}>
-                <h2>{category.name} ({categoryProducts.length})</h2>
-                <ul>
-                  {categoryProducts.map((product) => (
-                      <li key={product.id}>{product.name}</li>
-                  ))}
-                </ul>
-              </section>
-          )
-        })}
-      </main>
-  )
+    return (
+        <Routes>
+            <Route path="/" element={<CatalogPage catalog={catalog} />} />
+            <Route
+                path="/products/:productId"
+                element={<ProductDetailsPage catalog={catalog} />}
+            />
+            <Route path="*" element={<NotFoundPage title="Page not found" />} />
+        </Routes>
+    )
 }
