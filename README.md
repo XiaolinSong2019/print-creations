@@ -36,6 +36,19 @@ The application runs at http://localhost:8080.
 
 Press Control+C in the terminal running the application to stop it.
 
+Start Docker before running the backend integration tests. The tests use
+Testcontainers to start a separate PostgreSQL instance.
+
+Before starting the application locally, start the development database
+from the repository root:
+
+```bash
+docker compose up --wait --wait-timeout 60 postgres
+```
+
+The development database listens on `127.0.0.1:5433`. Flyway applies the
+database migrations when the application starts.
+
 ## Continuous Integration
 
 Maven CI builds and tests the project with Java 21 and the Maven Wrapper

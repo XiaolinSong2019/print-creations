@@ -121,6 +121,8 @@ Status: Done
 Date: 2026-11-09
 Status: Done
 Issue: [#9](https://github.com/XiaolinSong2019/print-creations/issues/9)
+Pull Request: [#10](https://github.com/XiaolinSong2019/print-creations/pull/10)
+Main Branch Commit: `ad9ddd3`
 
 - Displayed 28 products under four categories using the Spring Boot APIs.
 - Verified category counts of 10, 11, 4, and 3 in the browser.
@@ -134,10 +136,27 @@ Issue: [#9](https://github.com/XiaolinSong2019/print-creations/issues/9)
 ## PC-006: Public Product Detail Pages
 
 Date: 2026-11-09
-Status: In Progress
+Status: Done
 Issue: [#11](https://github.com/XiaolinSong2019/print-creations/issues/11)
+Pull Request: [#12](https://github.com/XiaolinSong2019/print-creations/pull/12)
+Main Branch Commit: `3f84fb7`
 
-- Linked catalog products to a shared detail page at `/products/:productId`.
-- Verified catalog navigation, direct links, refresh, and the missing-product page in the browser.
-- Passed five frontend tests, lint, and the production build.
-- The production dependency audit reported zero vulnerabilities.
+## PC-007: Quote Request Submission
+
+Status: Ready for review  
+Issue: [#13](https://github.com/XiaolinSong2019/print-creations/issues/13)
+
+Customers can request a quote from a product detail page. Spring Boot validates
+the request, saves it to PostgreSQL, and returns a reference number for the
+confirmation page.
+
+### Verification
+
+- Backend: `./mvnw clean test` passed all 5 tests. Flyway applied the V1
+  migration. Integration tests verified that valid quotes are saved and
+  invalid requests do not create records.
+- Frontend: all 7 tests passed. Lint and the production build passed.
+- Manual: submitted a Business Cards quote and matched the confirmation
+  reference to the PostgreSQL record. Verified that a rush request can be
+  saved without marketing opt-in. The quote starts in `NEW` with rush
+  approval unset and no rush fee.
