@@ -33,6 +33,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.HEAD, "/", "/api/categories", "/api/products").permitAll()
                         .requestMatchers(guestQuoteSubmission).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/admin/quotes/{referenceNumber}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/admin/csrf").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/api/admin/quotes/{referenceNumber}/rush-approval").hasRole("ADMIN")
                         .anyRequest().denyAll()
                 )
                 .httpBasic(Customizer.withDefaults())

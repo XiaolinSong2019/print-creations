@@ -171,3 +171,18 @@ Status: Ready for review
 - Manual verification: after restarting the application, an anonymous lookup
   returned HTTP 401. An authenticated administrator retrieved the original
   PostgreSQL quote with HTTP 200 and Cache-Control: no-store.
+## PC-009: Audited Admin Rush Approval
+
+Issue: [#17](https://github.com/XiaolinSong2019/print-creations/issues/17)
+Status: Ready for review
+
+- Added Admin approval and revocation with version checks and an audit record
+  saved in the same transaction.
+- Maven verify: 17 tests passed, with zero failures, errors, or skipped tests.
+  The suite covers authorization, duplicate requests, concurrent updates,
+  and rollback when the audit insert fails.
+- Local HTTP and PostgreSQL verification: a customer submitted a rush quote
+  and an Admin approved it at $25.50. The API returned HTTP 200. The quote
+  remained NEW, its version advanced from 0 to 1, and exactly one audit row
+  recorded the actor and the previous and new approval values.
+- JaCoCo branch coverage for `RushApprovalService`: 95.0% (38/40 branches).
