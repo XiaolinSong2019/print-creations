@@ -27,6 +27,7 @@ public record AdminQuoteDetails(
         boolean rushApproved,
         BigDecimal rushFeeAmount,
         boolean marketingOptIn,
-        OffsetDateTime createdAt
+        OffsetDateTime createdAt,
+        long version
 ) {
 }

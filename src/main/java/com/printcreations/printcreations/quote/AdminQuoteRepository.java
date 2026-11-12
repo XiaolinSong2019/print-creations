@@ -28,7 +28,7 @@ public class AdminQuoteRepository {
                                special_instructions, rush_requested,
                                rush_requested_completion_date, rush_notes,
                                rush_approved, rush_fee_amount, marketing_opt_in,
-                               created_at
+                               created_at, version
                         FROM quote_requests
                         WHERE reference_number = :referenceNumber
                         """)
@@ -53,7 +53,8 @@ public class AdminQuoteRepository {
                         row.getBoolean("rush_approved"),
                         row.getBigDecimal("rush_fee_amount"),
                         row.getBoolean("marketing_opt_in"),
-                        row.getObject("created_at", OffsetDateTime.class)
+                        row.getObject("created_at", OffsetDateTime.class),
+                        row.getLong("version")
                 ))
                 .optional();
     }
