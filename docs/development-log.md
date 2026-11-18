@@ -189,7 +189,7 @@ Status: Ready for review
 
 ## PC-010: Admin Rush Approval Page
 
-- Status: Ready for review
+- Status: Done
 - Issue: #19
 - Added `/admin/quotes` so an admin can look up a quote by reference, review a rush fee, and confirm or revoke approval.
 - Frontend verification: 12 tests passed. ESLint and the production build passed.
