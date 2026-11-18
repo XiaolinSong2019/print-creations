@@ -1,0 +1,114 @@
+.admin-rush-page {
+    max-width: 52rem;
+    margin: 2rem auto;
+    padding: 1rem 1rem 3rem;
+    text-align: left;
+    color: #24352c;
+    background: #f2f4ed;
+    border-radius: 0.75rem;
+}
+
+.admin-rush-toolbar,
+.admin-rush-review {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-rush-toolbar {
+    justify-content: space-between;
+}
+
+.admin-rush-page a {
+    color: #315c42;
+    text-decoration: underline;
+}
+
+.admin-rush-card {
+    background: #faf9f4;
+    border: 1px solid #cad7ca;
+    border-radius: 0.75rem;
+    margin: 1rem 0;
+    padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.admin-rush-form {
+    display: grid;
+    gap: 0.6rem;
+    justify-items: start;
+}
+
+.admin-rush-page label,
+.admin-rush-page dt {
+    font-weight: 650;
+}
+
+.admin-rush-page input {
+    box-sizing: border-box;
+    width: min(100%, 30rem);
+    padding: 0.65rem 0.75rem;
+    font: inherit;
+    border: 1px solid #809487;
+    border-radius: 0.35rem;
+    background: white;
+    color: #24352c;
+}
+
+.admin-rush-page button {
+    background: #365b46;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    font: inherit;
+}
+
+.admin-rush-page button.admin-rush-secondary {
+    background: white;
+    color: #31513e;
+    border-color: #809487;
+}
+
+.admin-rush-page button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.admin-rush-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1rem;
+}
+
+.admin-rush-details dd {
+    margin: 0.15rem 0 0;
+    overflow-wrap: anywhere;
+}
+
+.admin-rush-review {
+    padding: 0.75rem;
+    background: #e6eee4;
+    border-radius: 0.4rem;
+}
+
+.admin-rush-review p {
+    flex-basis: 100%;
+    margin: 0;
+}
+
+.admin-rush-error,
+.admin-rush-notice {
+    padding: 0.65rem 0.75rem;
+    border-left: 0.3rem solid;
+}
+
+.admin-rush-error {
+    color: #8a271f;
+    background: #fff0ea;
+}
+
+.admin-rush-notice {
+    color: #28503a;
+    background: #e6eee4;
+}

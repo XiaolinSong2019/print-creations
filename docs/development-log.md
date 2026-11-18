@@ -186,3 +186,12 @@ Status: Ready for review
   remained NEW, its version advanced from 0 to 1, and exactly one audit row
   recorded the actor and the previous and new approval values.
 - JaCoCo branch coverage for `RushApprovalService`: 95.0% (38/40 branches).
+
+## PC-010: Admin Rush Approval Page
+
+- Status: Done
+- Issue: #19
+- Added `/admin/quotes` so an admin can look up a quote by reference, review a rush fee, and confirm or revoke approval.
+- Frontend verification: 12 tests passed. ESLint and the production build passed.
+- PostgreSQL verification: approval saved a $25.50 fee at version 1. Revocation cleared the fee at version 2. The quote remained `NEW`, with `rush_requested=true` and `rush_approved=false`.
+- The audit table contained exactly two entries for the test quote, both recorded under `admin`: one approval and one revocation.
